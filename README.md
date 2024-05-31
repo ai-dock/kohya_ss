@@ -21,19 +21,15 @@ The `:latest` tag points to `:latest-cuda`
 Tags follow these patterns:
 
 ##### _CUDA_
-- `:cuda-[x.x.x]-[base|runtime]-[ubuntu-version]`
+- `:cuda-[x.x.x]-runtime-[ubuntu-version]`
 
-- `:latest-cuda` &rarr; `:cuda-11.8.0-base-22.04`
+- `:latest-cuda` &rarr; `:cuda-12.1.1-runtime-22.04`
 
 ##### _ROCm_
 - `:rocm-[x.x.x]-runtime-[ubuntu-version]`
 
 - `:latest-rocm` &rarr; `:rocm-5.7-runtime-22.04`
 
-##### _CPU_
-- `:cpu-ubuntu-[ubuntu-version]`
-
-- `:latest-cpu` &rarr; `:cpu-22.04` 
 
 Browse [here](https://github.com/ai-dock/stable-diffusion-webui/pkgs/container/stable-diffusion-webui) for an image suitable for your target environment.
 
