@@ -60,7 +60,7 @@ function start() {
     
     exec micromamba run -n kohya_ss -e LD_PRELOAD=libtcmalloc.so tensorboard \
         --port ${LISTEN_PORT} \
-        --logdir /opt/kohya_ss/dataset
+        --logdir /opt/kohya_ss/logs
 }
 
 start 2>&1

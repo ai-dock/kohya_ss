@@ -74,7 +74,7 @@ The service will launch on port `7860` unless you have specified an override wit
 
 You can set startup flags by using variable `KOHYA_FLAGS`.
 
-To manage this service you can use `supervisorctl [start|stop|restart] kohya`.
+To manage this service you can use `supervisorctl [start|stop|restart] kohya_ss`.
 
 >[!NOTE]
 >All services are password protected by default. See the [security](https://github.com/ai-dock/base-image/wiki#security) and [environment variables](https://github.com/ai-dock/base-image/wiki/2.0-Environment-Variables) documentation for more information.
