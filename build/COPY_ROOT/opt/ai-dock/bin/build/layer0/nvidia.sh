@@ -17,7 +17,8 @@ build_nvidia_install_kohya_ss() {
 
     build_common_install_kohya_ss
     cd /opt/kohya_ss
-    micromamba run -n kohya_ss $PIP_INSTALL tensorflow tensorboard tensorrt==10.0.1 \
+    micromamba run -n kohya_ss $PIP_INSTALL tensorrt==10.0.1 --extra-index-url https://pypi.nvidia.com
+    micromamba run -n kohya_ss $PIP_INSTALL tensorflow tensorboard \
         -r requirements_linux_docker.txt
     
     ln -s /opt/micromamba/envs/kohya_ss/lib/python${PYTHON_VERSION}/site-packages/tensorrt_libs/libnvinfer.so.10 \
