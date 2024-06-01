@@ -17,7 +17,7 @@ jobs:
       matrix:
         build:
           # Undeclared release tag finds latest from GitHub tags
-          - {latest: "true", tag: "v24.1.4", python: "3.10", pytorch: "2.2.2", cuda: "12.1.0-runtime"}
+          - {latest: "true", tag: "v24.1.4", python: "3.10", pytorch: "2.2.2", cuda: "12.1.1-runtime"}
           
     steps:
       -
