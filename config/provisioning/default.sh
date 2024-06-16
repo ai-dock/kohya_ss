@@ -7,16 +7,10 @@
 ### Edit the following arrays to suit your workflow - values must be quoted and separated by newlines or spaces.
 
 DISK_GB_REQUIRED=30
-
-MAMBA_PACKAGES=(
-    #"package1"
-    #"package2=version"
-  )
   
 PIP_PACKAGES=(
     #"package==version"
   )
-
 
 CHECKPOINT_MODELS=(
     "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt"
@@ -30,6 +24,8 @@ CHECKPOINT_MODELS=(
 
 function provisioning_start() {
     source /opt/ai-dock/etc/environment.sh
+    source /opt/ai-dock/bin/venv-set.sh kohya
+    
     DISK_GB_AVAILABLE=$(($(df --output=avail -m "${WORKSPACE}" | tail -n1) / 1000))
     DISK_GB_USED=$(($(df --output=used -m "${WORKSPACE}" | tail -n1) / 1000))
     DISK_GB_ALLOCATED=$(($DISK_GB_AVAILABLE + $DISK_GB_USED))
@@ -43,15 +39,9 @@ function provisioning_start() {
     provisioning_print_end
 }
 
-function provisioning_get_mamba_packages() {
-    if [[ -n $MAMBA_PACKAGES ]]; then
-        $MAMBA_INSTALL -n kohya_ss ${MAMBA_PACKAGES[@]}
-    fi
-}
-
 function provisioning_get_pip_packages() {
     if [[ -n $PIP_PACKAGES ]]; then
-        micromamba run -n kohya_ss $PIP_INSTALL ${PIP_PACKAGES[@]}
+        "$KOHYA_VENV_PIP" install --no-cache-dir ${PIP_PACKAGES[@]}
     fi
 }
 
