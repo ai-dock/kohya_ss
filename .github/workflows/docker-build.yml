@@ -17,7 +17,7 @@ jobs:
       matrix:
         build:
           # Undeclared release tag finds latest from GitHub tags
-          - {latest: "true", tag: "v24.1.4", python: "3.10", pytorch: "2.2.2", cuda: "12.1.1-runtime"}
+          - {latest: "true", tag: "v24.1.4", python: "3.10", pytorch: "2.3.0", cuda: "12.1.1-base"}
           
     steps:
       -
@@ -64,7 +64,7 @@ jobs:
             [ -z "$KOHYA_TAG" ] && { echo "Error: KOHYA_TAG is empty. Exiting script." >&2; exit 1; }
             echo "KOHYA_TAG=${KOHYA_TAG}" >> ${GITHUB_ENV}
 
-            base_tag="cuda-${{ matrix.build.cuda }}-${{ env.UBUNTU_VERSION }}"
+            base_tag="v2-cuda-${{ matrix.build.cuda }}-${{ env.UBUNTU_VERSION }}"
 
             if [[ ${{ matrix.build.latest }} == "true" ]]; then
                 echo "Marking latest"
@@ -79,7 +79,7 @@ jobs:
         with:
           context: build
           build-args: |
-            IMAGE_BASE=ghcr.io/ai-dock/python:${{ matrix.build.python }}-cuda-${{ matrix.build.cuda }}-${{ env.UBUNTU_VERSION }}
+            IMAGE_BASE=ghcr.io/ai-dock/python:${{ matrix.build.python }}-v2-cuda-${{ matrix.build.cuda }}-${{ env.UBUNTU_VERSION }}
             PYTHON_VERSION=${{ matrix.build.python }}
             PYTORCH_VERSION=${{ matrix.build.pytorch }}
             KOHYA_TAG=${{ env.KOHYA_TAG }}
@@ -93,7 +93,7 @@ jobs:
       fail-fast: false
       matrix:
         build:
-          - {latest: "true", tag: "v24.1.4", python: "3.10", pytorch: "2.2.2", rocm: "5.7-runtime"}
+          - {latest: "true", tag: "v24.1.4", python: "3.10", pytorch: "2.3.0", rocm: "6.0-core"}
     steps:
       -
         name: Free Space
@@ -139,7 +139,7 @@ jobs:
             [ -z "$KOHYA_TAG" ] && { echo "Error: KOHYA_TAG is empty. Exiting script." >&2; exit 1; }
             echo "KOHYA_TAG=${KOHYA_TAG}" >> ${GITHUB_ENV}
 
-            base_tag="rocm-${{ matrix.build.rocm }}-${{ env.UBUNTU_VERSION }}"
+            base_tag="v2-rocm-${{ matrix.build.rocm }}-${{ env.UBUNTU_VERSION }}"
 
             if [[ ${{ matrix.build.latest }} == "true" ]]; then
                 echo "Marking latest"
@@ -154,7 +154,7 @@ jobs:
         with:
           context: build
           build-args: |
-            IMAGE_BASE=ghcr.io/ai-dock/python:${{ matrix.build.python }}-rocm-${{ matrix.build.rocm }}-${{ env.UBUNTU_VERSION }}
+            IMAGE_BASE=ghcr.io/ai-dock/python:${{ matrix.build.python }}-v2-rocm-${{ matrix.build.rocm }}-${{ env.UBUNTU_VERSION }}
             PYTHON_VERSION=${{ matrix.build.python }}
             PYTORCH_VERSION=${{ matrix.build.pytorch }}
             KOHYA_TAG=${{ env.KOHYA_TAG }}

@@ -1,5 +1,5 @@
 #!/bin/false
 
-# NOT SUPPORTED
+# NOT SUPPORTED (exit 1)
 
 build_cpu_main "$@"

@@ -7,9 +7,9 @@ services:
       context: ./build
       args:
         PYTHON_VERSION: ${PYTHON_VERSION:-3.10}
-        PYTORCH_VERSION: ${PYTORCH_VERSION:-2.2.2}
-        WEBUI_TAG: ${WEBUI_TAG:-}
-        IMAGE_BASE: ${IMAGE_BASE:-ghcr.io/ai-dock/python:${PYTHON_VERSION:-3.10}-cuda-12.1.1-base-22.04}
+        PYTORCH_VERSION: ${PYTORCH_VERSION:-2.3.0}
+        KOHYA_TAG: ${KOHYA_TAG:-}
+        IMAGE_BASE: ${IMAGE_BASE:-ghcr.io/ai-dock/python:${PYTHON_VERSION:-3.10}-v2-cuda-12.1.1-base-22.04}
       tags:
         - "ghcr.io/ai-dock/kohya_ss:${IMAGE_TAG:-cuda-12.1.1-base-22.04}"
         

@@ -23,12 +23,12 @@ Tags follow these patterns:
 ##### _CUDA_
 - `:cuda-[x.x.x]-runtime-[ubuntu-version]`
 
-- `:latest-cuda` &rarr; `:cuda-12.1.1-runtime-22.04`
+- `:latest-cuda` &rarr; `:v2-cuda-12.1.1-runtime-22.04`
 
 ##### _ROCm_
 - `:rocm-[x.x.x]-runtime-[ubuntu-version]`
 
-- `:latest-rocm` &rarr; `:rocm-5.7-runtime-22.04`
+- `:latest-rocm` &rarr; `:v2-rocm-6.0-core-22.04`
 
 
 Browse [here](https://github.com/ai-dock/stable-diffusion-webui/pkgs/container/stable-diffusion-webui) for an image suitable for your target environment.
@@ -49,15 +49,15 @@ Supported Platforms: `NVIDIA CUDA`, `AMD ROCm`
 
 See the base environment variables [here](https://github.com/ai-dock/base-image/wiki/2.0-Environment-Variables) for more configuration options.
 
-### Additional Micromamba Environments
+### Additional Python Environments
 
 | Environment    | Packages |
 | -------------- | ----------------------------------------- |
 | `kohya`        | Kohya's GUI and dependencies |
 
-This micromamba environment will be activated on shell login.
+This virtualenv will be activated on shell login.
 
-See the base micromamba environments [here](https://github.com/ai-dock/base-image/wiki/1.0-Included-Software#installed-micromamba-environments).
+See the base environments [here](https://github.com/ai-dock/base-image/wiki/1.0-Included-Software#installed-micromamba-environments).
 
 
 ## Additional Services

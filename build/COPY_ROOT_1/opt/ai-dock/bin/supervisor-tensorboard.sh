@@ -2,22 +2,29 @@
 
 trap cleanup EXIT
 
-LISTEN_PORT=${KOHYA_PORT_LOCAL:-17860}
-METRICS_PORT=${KOHYA_METRICS_PORT:-27860}
-SERVICE_URL="${KOHYA_URL:-}"
+LISTEN_PORT=${TENSORBOARD_PORT_LOCAL:-16006}
+METRICS_PORT=${TENSORBOARD_METRICS_PORT:-26006}
+SERVICE_URL="${TENSORBOARD_URL:-}"
 QUICKTUNNELS=true
 
 function cleanup() {
     kill $(jobs -p) > /dev/null 2>&1
     rm /run/http_ports/$PROXY_PORT > /dev/null 2>&1
+    if [[ -z "$VIRTUAL_ENV" ]]; then
+        deactivate
+    fi
 }
 
 function start() {
-    if [[ ! -v KOHYA_PORT || -z $KOHYA_PORT ]]; then
-        KOHYA_PORT=${KOHYA_PORT_HOST:-7860}
+    source /opt/ai-dock/etc/environment.sh
+    source /opt/ai-dock/bin/venv-set.sh serviceportal
+    source /opt/ai-dock/bin/venv-set.sh kohya
+    
+    if [[ ! -v TENSORBOARD_PORT || -z $TENSORBOARD_PORT ]]; then
+        TENSORBOARD_PORT=${TENSORBOARD_PORT_HOST:-6006}
     fi
-    PROXY_PORT=$KOHYA_PORT
-    SERVICE_NAME="Kohya's GUI"
+    PROXY_PORT=$TENSORBOARD_PORT
+    SERVICE_NAME="Tensorboard"
     
     file_content="$(
       jq --null-input \
@@ -34,18 +41,11 @@ function start() {
     
     printf "Starting $SERVICE_NAME...\n"
     
-    PLATFORM_FLAGS=
-    if [[ $XPU_TARGET = "AMD_GPU" ]]; then
-        PLATFORM_FLAGS="--use-rocm"
-    fi
-
-    BASE_FLAGS="--headless"
-    
     # Delay launch until micromamba is ready
     if [[ -f /run/workspace_sync || -f /run/container_config ]]; then
         fuser -k -SIGTERM ${LISTEN_PORT}/tcp > /dev/null 2>&1 &
         wait -n
-        /usr/bin/python3 /opt/ai-dock/fastapi/logviewer/main.py \
+        "$SERVICEPORTAL_VENV_PYTHON" /opt/ai-dock/fastapi/logviewer/main.py \
             -p $LISTEN_PORT \
             -r 5 \
             -s "${SERVICE_NAME}" \
@@ -63,12 +63,12 @@ function start() {
     fuser -k -SIGKILL ${LISTEN_PORT}/tcp > /dev/null 2>&1 &
     wait -n
     
-    FLAGS_COMBINED="${PLATFORM_FLAGS} ${BASE_FLAGS} $(cat /etc/kohya_ss_flags.conf)"
     printf "Starting %s...\n" "${SERVICE_NAME}"
     
-    cd /opt/kohya_ss &&
-    exec micromamba run -n kohya_ss -e LD_PRELOAD=libtcmalloc.so python kohya_gui.py \
-        ${FLAGS_COMBINED} --server_port ${LISTEN_PORT}
+    source "$KOHYA_VENV/bin/activate"
+    LD_PRELOAD=libtcmalloc.so tensorboard \
+        --port ${LISTEN_PORT} \
+        --logdir /opt/kohya_ss/logs
 }
 
 start 2>&1

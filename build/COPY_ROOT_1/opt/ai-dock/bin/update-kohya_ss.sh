@@ -2,6 +2,9 @@
 umask 002
 branch=master
 
+source /opt/ai-dock/etc/environment.sh
+source /opt/ai-dock/bin/venv-set.sh kohya
+
 if [[ -n "${KOHYA_BRANCH}" ]]; then
     branch="${KOHYA_BRANCH}"
 fi
@@ -22,4 +25,5 @@ git checkout ${branch}
 git pull
 git submodule update --recursive
 
-micromamba run -n koya_ss ${PIP_INSTALL} -r requirements.txt
+"$KOHYA_VENV_PIP" install --no-cache-dir \
+    -r requirements.txt
