@@ -68,7 +68,7 @@ jobs:
 
             if [[ ${{ matrix.build.latest }} == "true" ]]; then
                 echo "Marking latest"
-                TAGS="${img_path}:${base_tag}, ${img_path}:latest, ${img_path}:latest-cuda"
+                TAGS="${img_path}:${base_tag}-${KOHYA_TAG}, ${img_path}:${base_tag}, ${img_path}:latest, ${img_path}:latest-cuda"
             else
                 TAGS="${img_path}:${base_tag}-${KOHYA_TAG}"
             fi
@@ -143,7 +143,7 @@ jobs:
 
             if [[ ${{ matrix.build.latest }} == "true" ]]; then
                 echo "Marking latest"
-                TAGS="${img_path}:${base_tag}, ${img_path}:latest-rocm"
+                TAGS="${img_path}:${base_tag}-${KOHYA_TAG}, ${img_path}:${base_tag}, ${img_path}:latest-rocm"
             else
                 TAGS="${img_path}:${base_tag}-${KOHYA_TAG}"
             fi
