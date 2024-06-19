@@ -10,7 +10,6 @@ build_amd_install_torch() {
         torch==${PYTORCH_VERSION} \
         torchvision \
         torchaudio \
-        xformers \
         --extra-index-url=https://download.pytorch.org/whl/rocm${ROCM_VERSION}
 }
 
