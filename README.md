@@ -31,7 +31,7 @@ Tags follow these patterns:
 - `:latest-rocm` &rarr; `:v2-rocm-6.0-core-22.04-v24.1.4`
 
 
-Browse [here](https://github.com/ai-dock/stable-diffusion-webui/pkgs/container/stable-diffusion-webui) for an image suitable for your target environment.
+Browse [here](https://github.com/ai-dock/kohya_ss/pkgs/container/kohya_ss) for an image suitable for your target environment.
 
 Supported Python versions: `3.10`
 
