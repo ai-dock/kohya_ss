@@ -6,6 +6,9 @@ function preflight_main() {
     preflight_configure_accelerate
     preflight_update_kohya_ss
     printf "%s" "${KOHYA_FLAGS}" > /etc/kohya_ss_flags.conf
+    export TENSORBOARD_FLAGS=${TENSORBOARD_FLAGS:-"--logdir /opt/kohya_ss/logs"}
+    env-store TENSORBOARD_FLAGS
+    printf "%s" "${TENSORBOARD_FLAGS}" > /etc/tensorboard_flags.conf
 }
 
 function preflight_configure_accelerate() {

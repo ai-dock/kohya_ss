@@ -10,7 +10,7 @@ build_amd_install_torch() {
         torch==${PYTORCH_VERSION} \
         torchvision \
         torchaudio \
-        --extra-index-url=https://download.pytorch.org/whl/rocm${ROCM_VERSION}
+        --index-url=https://download.pytorch.org/whl/rocm${ROCM_VERSION}
 }
 
 build_amd_main "$@"
