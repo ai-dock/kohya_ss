@@ -47,6 +47,7 @@ Supported Platforms: `NVIDIA CUDA`, `AMD ROCm`
 | `KOHYA_PORT_HOST`        | Kohya's GUI port (default `7860`) |
 | `KOHYA_URL`              | Override `$DIRECT_ADDRESS:port` with URL for Kohya's GUI |
 | `TENSORBOARD_PORT_HOST`  | Tensorboard port (default `6006`) |
+| `TENSORBOARD_FLAGS`      | Startup flags (default `--logdir /opt/kohya_ss/logs`) |
 | `TENSORBOARD_URL`        | Override `$DIRECT_ADDRESS:port` with URL for Tensorboard |
 
 See the base environment variables [here](https://github.com/ai-dock/base-image/wiki/2.0-Environment-Variables) for more configuration options.
@@ -59,7 +60,7 @@ See the base environment variables [here](https://github.com/ai-dock/base-image/
 
 This virtualenv will be activated on shell login.
 
-See the base environments [here](https://github.com/ai-dock/base-image/wiki/1.0-Included-Software#installed-micromamba-environments).
+~~See the base environments [here](https://github.com/ai-dock/base-image/wiki/1.0-Included-Software#installed-micromamba-environments).~~
 
 
 ## Additional Services
