@@ -66,9 +66,9 @@ function start() {
     printf "Starting %s...\n" "${SERVICE_NAME}"
     
     source "$KOHYA_VENV/bin/activate"
-    FLAGS_COMBINED="$(cat /etc/tensorboard_flags.conf)"
+    ARGS_COMBINED="$(cat /etc/tensorboard_args.conf)"
     LD_PRELOAD=libtcmalloc.so tensorboard \
-        $FLAGS_COMBINED \
+        $ARGS_COMBINED \
         --port ${LISTEN_PORT}
 }
 

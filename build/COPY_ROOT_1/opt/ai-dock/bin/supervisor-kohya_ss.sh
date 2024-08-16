@@ -41,12 +41,12 @@ function start() {
     
     printf "Starting $SERVICE_NAME...\n"
     
-    PLATFORM_FLAGS=
+    PLATFORM_ARGS=
     if [[ $XPU_TARGET = "AMD_GPU" ]]; then
-        PLATFORM_FLAGS="--use-rocm"
+        PLATFORM_ARGS="--use-rocm"
     fi
 
-    BASE_FLAGS="--headless"
+    BASE_ARGS="--headless"
     
     # Delay launch until micromamba is ready
     if [[ -f /run/workspace_sync || -f /run/container_config ]]; then
@@ -70,13 +70,13 @@ function start() {
     fuser -k -SIGKILL ${LISTEN_PORT}/tcp > /dev/null 2>&1 &
     wait -n
     
-    FLAGS_COMBINED="${PLATFORM_FLAGS} ${BASE_FLAGS} $(cat /etc/kohya_ss_flags.conf)"
+    ARGS_COMBINED="${PLATFORM_ARGS} ${BASE_ARGS} $(cat /etc/kohya_ss_args.conf)"
     printf "Starting %s...\n" "${SERVICE_NAME}"
     
     cd /opt/kohya_ss
     source "$KOHYA_VENV/bin/activate"
     LD_PRELOAD=libtcmalloc.so python kohya_gui.py \
-        ${FLAGS_COMBINED} --server_port ${LISTEN_PORT}
+        ${ARGS_COMBINED} --server_port ${LISTEN_PORT}
 }
 
 start 2>&1

@@ -23,12 +23,12 @@ Tags follow these patterns:
 ##### _CUDA_
 - `:v2-cuda-[x.x.x]-base-[ubuntu-version]`
 
-- `:latest-cuda` &rarr; `:v2-cuda-12.1.1-base-22.04-v24.1.4`
+- `:latest-cuda` &rarr; `:v2-cuda-12.1.1-base-22.04`
 
 ##### _ROCm_
 - `:v2-rocm-[x.x.x]-core-[ubuntu-version]`
 
-- `:latest-rocm` &rarr; `:v2-rocm-6.0-core-22.04-v24.1.4`
+- `:latest-rocm` &rarr; `:v2-rocm-6.0-core-22.04`
 
 
 Browse [here](https://github.com/ai-dock/kohya_ss/pkgs/container/kohya_ss) for an image suitable for your target environment.
@@ -42,12 +42,12 @@ Supported Platforms: `NVIDIA CUDA`, `AMD ROCm`
 | Variable                 | Description |
 | ------------------------ | ----------- |
 | `AUTO_UPDATE`            | Update Kohya_ss on startup (default `false`) |
-| `KOHYA_BRANCH`           | Kohya_ss branch/commit hash for auto update. (default `master`) |
-| `KOHYA_FLAGS`            | Startup flags |
+| `KOHYA_ARGS`             | Startup arguments |
 | `KOHYA_PORT_HOST`        | Kohya's GUI port (default `7860`) |
+| `KOHYA_REF`              | Git reference for auto update. Accepts branch, tag or commit hash. Default: latest release |
 | `KOHYA_URL`              | Override `$DIRECT_ADDRESS:port` with URL for Kohya's GUI |
+| `TENSORBOARD_ARGS`       | Startup arguments (default `--logdir /opt/kohya_ss/logs`) |
 | `TENSORBOARD_PORT_HOST`  | Tensorboard port (default `6006`) |
-| `TENSORBOARD_FLAGS`      | Startup flags (default `--logdir /opt/kohya_ss/logs`) |
 | `TENSORBOARD_URL`        | Override `$DIRECT_ADDRESS:port` with URL for Tensorboard |
 
 See the base environment variables [here](https://github.com/ai-dock/base-image/wiki/2.0-Environment-Variables) for more configuration options.
@@ -71,7 +71,7 @@ The following services will be launched alongside the [default services](https:/
 
 The service will launch on port `7860` unless you have specified an override with `KOHYA_PORT`.
 
-You can set startup flags by using variable `KOHYA_FLAGS`.
+You can set startup arguments by using variable `KOHYA_ARGS`.
 
 To manage this service you can use `supervisorctl [start|stop|restart] kohya_ss`.
 

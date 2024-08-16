@@ -3,12 +3,16 @@
 
 function preflight_main() {
     source /opt/ai-dock/bin/venv-set.sh kohya
+
+    # egg-links break with symlinks - Address that here
+    [[ -d ${WORKSPACE}/kohya_ss ]] && sed -i "s|/opt/|${WORKSPACE}|g" $KOHYA_VENV/lib/python3.10/site-packages/library.egg-link
+
     preflight_configure_accelerate
     preflight_update_kohya_ss
-    printf "%s" "${KOHYA_FLAGS}" > /etc/kohya_ss_flags.conf
-    export TENSORBOARD_FLAGS=${TENSORBOARD_FLAGS:-"--logdir /opt/kohya_ss/logs"}
-    env-store TENSORBOARD_FLAGS
-    printf "%s" "${TENSORBOARD_FLAGS}" > /etc/tensorboard_flags.conf
+    printf "%s" "${KOHYA_ARGS}" > /etc/kohya_ss_args.conf
+    export TENSORBOARD_ARGS=${TENSORBOARD_ARGS:-"--logdir /opt/kohya_ss/logs"}
+    env-store TENSORBOARD_ARGS
+    printf "%s" "${TENSORBOARD_ARGS}" > /etc/tensorboard_args.conf
 }
 
 function preflight_configure_accelerate() {
