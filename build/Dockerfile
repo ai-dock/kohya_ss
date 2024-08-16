@@ -25,8 +25,8 @@ ARG IMAGE_BASE
 RUN set -eo pipefail && /opt/ai-dock/bin/build/layer0/init.sh | tee /var/log/build.log
 
 # Install Kohya_ss
-ARG KOHYA_TAG
-ENV KOHYA_TAG=${KOHYA_TAG}
+ARG KOHYA_BUILD_REF
+ENV KOHYA_BUILD_REF=${KOHYA_BUILD_REF}
 COPY --chown=0:1111 ./COPY_ROOT_1/ /
 RUN set -eo pipefail && /opt/ai-dock/bin/build/layer1/init.sh | tee -a /var/log/build.log
 
